@@ -2,7 +2,13 @@ const fs = require("fs");
 
 function main() {
   const saveData = readJson();
-  console.log("saveData: ", saveData);
+
+  if (saveData) {
+    const dataTest = { name: "shero" };
+    updateJson(saveData.data, dataTest);
+
+    saveJson(saveData);
+  }
 }
 
 function readJson() {
@@ -14,7 +20,9 @@ function readJson() {
   } catch (error) {
     console.log("File doesnt exists, creating a new one.");
 
-    const initialSave = {};
+    const initialSave = {
+      data: [],
+    };
 
     saveJson(initialSave);
     return initialSave;
@@ -30,6 +38,17 @@ function saveJson(data) {
     console.log("Data Saved.");
   } catch (error) {
     console.log("Error on saving data. ", error);
+  }
+}
+
+function updateJson(container, element) {
+  // returns index pag waala -1
+  const itemIndex = container.findIndex((item) => item.name === element.name);
+
+  if (itemIndex !== -1) {
+    container[itemIndex] = element;
+  } else {
+    container.push(element);
   }
 }
 
