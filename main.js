@@ -4,8 +4,6 @@ function main() {
   console.log("hwllo rold");
 }
 
-function saveJson() {}
-
 function readJson() {
   try {
     const jsonData = fs.readFileSync("/data/saveData.json", "utf-8");
@@ -16,6 +14,17 @@ function readJson() {
     console.log("File doesnt exists, creating a new one.");
 
     //todo SAVE HERE
+  }
+}
+
+function saveJson(data) {
+  try {
+    const jsonData = JSON.stringify(data, null, 4);
+    fs.writeFileSync("/data/saveData.json");
+
+    console.log("Data Saved.");
+  } catch (error) {
+    console.log("Error on saving data. ", error);
   }
 }
 
